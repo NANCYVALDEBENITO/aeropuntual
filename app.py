@@ -19,6 +19,10 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__)
 server = app.server
+@server.route('/favicon.ico')
+def favicon():
+    return flask.send_from_directory(os.path.join(server.root_path, 'static'),
+                                     'favicon.ico')
 app.title = 'AEROPUNTUAL'
 # assume you have a "long-form" data frame
 # see https://plotly.com/python/px-arguments/ for more options
@@ -186,10 +190,7 @@ def prepare_daily_report(mes,dia):
 
 # app.layout = html.Div([
 #     html.Img(src='data:image/png;base64,{}'.format(encoded_image))
-@app.server.route('/favicon.ico')
-def favicon():
-    return flask.send_from_directory(os.path.join(app.server.root_path, 'static'),
-                                                  'favicon.ico', mimetype='assets/favicon.ico')
+
 app.layout = html.Div(children=[
     #html.H1(children='AEROPUNTUAL',style={'textAlign':'center'}),
     # All elements from the top of the page
