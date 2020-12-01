@@ -1,4 +1,4 @@
-import dash
+
 #import dash_leaflet as dl
 import dash_core_components as dcc
 import dash_html_components as html
@@ -7,6 +7,7 @@ import pandas as pd
 import plotly.express as px
 from jupyter_dash import JupyterDash
 from datetime import datetime, timedelta
+import dash
 import plotly.graph_objs as go
 import numpy as np
 import country_converter as coco
