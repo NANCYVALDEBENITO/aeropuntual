@@ -18,6 +18,7 @@ from IPython.display import IFrame
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__)
+server = app.server
 app.title = 'AEROPUNTUAL'
 # assume you have a "long-form" data frame
 # see https://plotly.com/python/px-arguments/ for more options
