@@ -26,10 +26,10 @@ auth = dash_auth.BasicAuth(
     VALID_USERNAME_PASSWORD_PAIRS
 )
 server = app.server
-@server.route('/favicon.ico')
+@app.route('/favicon.ico')
 def favicon():
-    return flask.send_from_directory(os.path.join(server.root_path, 'assets'),
-                                     'favicon.ico')
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'),
+                               'favicon.ico', mimetype='image/png')
 app.title = 'AEROPUNTUAL'
 # assume you have a "long-form" data frame
 # see https://plotly.com/python/px-arguments/ for more options
