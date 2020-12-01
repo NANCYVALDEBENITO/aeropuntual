@@ -7,6 +7,7 @@ chart-studio==1.1.0
 click==7.1.2
 country-converter==0.7.1
 dash==1.17.0
+dash-auth==1.0.0
 dash-core-components==1.13.0
 dash-html-components==1.1.1
 dash-leaflet==0.1.10

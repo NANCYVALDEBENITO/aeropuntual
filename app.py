@@ -1,5 +1,5 @@
 import dash
-import dash_leaflet as dl
+#import dash_leaflet as dl
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
@@ -10,14 +10,21 @@ from datetime import datetime, timedelta
 import plotly.graph_objs as go
 import numpy as np
 import country_converter as coco
-
+import dash_auth
 import plotly.figure_factory as ff
 import chart_studio.plotly as py
 from chart_studio.grid_objs import Column, Grid
 from IPython.display import IFrame
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-app = dash.Dash(__name__)
+app = dash.Dash('auth')
+VALID_USERNAME_PASSWORD_PAIRS = [
+    ['aeropuntual', 'proyectolatam']
+]
+auth = dash_auth.BasicAuth(
+    app,
+    VALID_USERNAME_PASSWORD_PAIRS
+)
 server = app.server
 @server.route('/favicon.ico')
 def favicon():
