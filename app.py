@@ -186,10 +186,14 @@ def prepare_daily_report(mes,dia):
 
 # app.layout = html.Div([
 #     html.Img(src='data:image/png;base64,{}'.format(encoded_image))
-# ])
+@app.server.route('/favicon.ico')
+def favicon():
+    return flask.send_from_directory(os.path.join(app.server.root_path, 'static'),
+                                                  'favicon.ico', mimetype='assets/favicon.ico')
 app.layout = html.Div(children=[
     #html.H1(children='AEROPUNTUAL',style={'textAlign':'center'}),
     # All elements from the top of the page
+
     html.Div(html.Img(src=app.get_asset_url('white_logo_color_background.jpg'), style={'height':'100%', 'width':'100%'})),
     
     html.Div([
