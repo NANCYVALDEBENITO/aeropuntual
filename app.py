@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 import plotly.graph_objs as go
 import numpy as np
 import country_converter as coco
-import base64
+
 import plotly.figure_factory as ff
 import chart_studio.plotly as py
 from chart_studio.grid_objs import Column, Grid
