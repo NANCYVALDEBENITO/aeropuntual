@@ -156,7 +156,7 @@ dftable = pd.read_csv('modelo.csv')
 
 
 
-def prepare_daily_report(dia,mes):
+def prepare_daily_report(mes,dia):
 
     current_date = (datetime.today() - timedelta(days=1)).strftime('%m-%d-%Y')
 
@@ -318,24 +318,7 @@ app.layout = html.Div(children=[
                                               style={"display": "block", "marginLeft": "auto", "marginRight": "auto",
                                                      "width": "80%"},
                                               className="six columns")], className="row"),
-
-     html.Div([html.Span("Día : ", className="six columns",
-                                           style={"textAlign": "right", 
-                                           "width": "30%"}),
-                                 dcc.Dropdown(id="value-selected3", value='Lu',
-                                              options=[{'label': "Lunes ", 'value': 'Lu'},
-                                                       {'label': "Martes ", 'value': 'Ma'},
-                                                       {'label': "Miércoles ", 'value': 'Mi'},
-                                                       {'label': "Jueves ", 'value': 'Ju'},
-                                                       {'label': "Viernes ", 'value': 'Vi'},
-                                                       {'label': "Sábado ", 'value': 'Sa'},
-                                                       {'label': "Domingo ", 'value': 'Do'}
-                                                       ],
-                                              style={"display": "block", "marginLeft": "auto", "marginRight": "auto",
-                                                     "width": "80%"},
-                                              className="six columns")], className="row"),
-
-    html.Div([html.Span("Mes : ", className="six columns",
+         html.Div([html.Span("Mes : ", className="six columns",
                                            style={"textAlign": "right", 
                                            "width": "30%"}),
                                  dcc.Dropdown(id="value-selected4", value=1,
@@ -354,6 +337,24 @@ app.layout = html.Div(children=[
                                               style={"display": "block", "marginLeft": "auto", "marginRight": "auto",
                                                      "width": "80%"},
                                               className="six columns")], className="row"),
+
+     html.Div([html.Span("Día : ", className="six columns",
+                                           style={"textAlign": "right", 
+                                           "width": "30%"}),
+                                 dcc.Dropdown(id="value-selected5", value='Lu',
+                                              options=[{'label': "Lunes ", 'value': 'Lu'},
+                                                       {'label': "Martes ", 'value': 'Ma'},
+                                                       {'label': "Miércoles ", 'value': 'Mi'},
+                                                       {'label': "Jueves ", 'value': 'Ju'},
+                                                       {'label': "Viernes ", 'value': 'Vi'},
+                                                       {'label': "Sábado ", 'value': 'Sa'},
+                                                       {'label': "Domingo ", 'value': 'Do'}
+                                                       ],
+                                              style={"display": "block", "marginLeft": "auto", "marginRight": "auto",
+                                                     "width": "80%"},
+                                              className="six columns")], className="row"),
+
+
     # html.Div([html.Span("Aerolínea : ", className="six columns",
     #                                        style={"textAlign": "right", 
     #                                        "width": "40%"}),
@@ -440,16 +441,16 @@ app.layout = html.Div(children=[
     dash.dependencies.Output("my-precipitation", "children"),],
     [dash.dependencies.Input("value-selected1", "value"),
     dash.dependencies.Input("value-selected2", "value"),
-    dash.dependencies.Input("value-selected3", "value"),
-    dash.dependencies.Input("value-selected4", "value")]
+    dash.dependencies.Input("value-selected4", "value"),
+    dash.dependencies.Input("value-selected5", "value")]
 )
 
 
-def update_multioutput(selected1,selected2,selected3,selected4):
+def update_multioutput(selected1,selected2,selected4,selected5):
     #dff = prepare_confirmed_data()
     df_bar = pd.read_csv('data_final.csv')
     if selected2 == 'Internacional':
-      dff = prepare_daily_report(selected3,selected4)
+      dff = prepare_daily_report(selected4,selected5)
       print(dff)
       dff['hover_text'] = dff["pais"] + " Probabilidad de atraso : " + (round(dff[selected1]/dff['atraso_total'],3)).apply(str)
 
@@ -468,7 +469,7 @@ def update_multioutput(selected1,selected2,selected3,selected4):
       layout = go.Layout(height=800,
               geo={'showframe': False,'showcoastlines': True,'projection': {'type': "miller"}})
       
-      df_dia = df_bar[df_bar['dia_nomi']== selected3]
+      df_dia = df_bar[df_bar['dia_nomi']== selected5]
       df_mes = df_dia[df_dia['mes']== selected4]
       temperature = str(round(df_mes.orig_tas.mean(),2))+' ºC'
       precipitation = str(round(df_mes.ori_pr.mean(),2))+' mm'
@@ -476,7 +477,7 @@ def update_multioutput(selected1,selected2,selected3,selected4):
 
     elif selected2 == 'Nacional':
 
-      df_dia = df_chile[df_chile['dia_nomi']== selected3]
+      df_dia = df_chile[df_chile['dia_nomi']== selected5]
       df_mes = df_dia[df_dia['mes']== selected4]
       df_mes['atraso_total'] = df_mes[selected1].replace([0], [1])
       df_bar_atraso_chile = df_mes.groupby(['dest_ciudad']).sum().reset_index()
@@ -509,7 +510,7 @@ def update_multioutput(selected1,selected2,selected3,selected4):
               
               geo_scope='south america'
           )
-      df_dia = df_bar[df_bar['dia_nomi']== selected3]
+      df_dia = df_bar[df_bar['dia_nomi']== selected5]
       df_mes = df_dia[df_dia['mes']== selected4]
       temperature = str(round(df_mes.orig_tas.mean(),2))+' ºC'
       precipitation = str(round(df_mes.ori_pr.mean(),2))+' mm'
