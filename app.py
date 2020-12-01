@@ -1,4 +1,6 @@
 
+import os
+os.system('pip install -r requirements.txt')
 #import dash_leaflet as dl
 import dash_core_components as dcc
 import dash_html_components as html
