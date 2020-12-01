@@ -19,7 +19,7 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__)
 server = app.server
-@server.route('/favicon.ico')
+@server.route('assets/favicon.ico')
 def favicon():
     return flask.send_from_directory(os.path.join(server.root_path, 'static'),
                                      'favicon.ico')
