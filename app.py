@@ -19,9 +19,9 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__)
 server = app.server
-@server.route('assets/favicon.ico')
+@server.route('/favicon.ico')
 def favicon():
-    return flask.send_from_directory(os.path.join(server.root_path, 'static'),
+    return flask.send_from_directory(os.path.join(server.root_path, 'assets'),
                                      'favicon.ico')
 app.title = 'AEROPUNTUAL'
 # assume you have a "long-form" data frame
